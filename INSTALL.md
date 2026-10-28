@@ -4,7 +4,7 @@ Codex is the primary installation target. Other host adapters are inherited from
 
 Pick your agent below. Not listed? Most agents read [`AGENTS.md`](AGENTS.md): copy it into your project, or ask your agent to install [`skills/bonden/SKILL.md`](skills/bonden/SKILL.md) as a skill. Which files map to which agent: [Agent portability](docs/agent-portability.md).
 
-The Claude Code and Codex plugins (and the Cursor hooks) run two tiny Node.js lifecycle hooks, so `node` needs to be on your PATH (note for Nix/nvm users: it must be on the non-interactive shell's PATH). If it isn't, the skills still work, but every hook call shows a harmless `node: command not found` error; installing Node (or putting it on that PATH) makes it go away.
+The Claude Code and Codex plugins, and the Cursor hooks, require Node.js on the non-interactive shell's PATH. Without it, the skills remain available but automatic rule injection and mode tracking fail.
 
 ## Claude Code
 
@@ -28,6 +28,8 @@ codex plugin add bonden@bonden
 ```
 
 Node.js must be on your PATH. Run `codex` and open `/hooks`, review and trust the three Bonden hooks (`SessionStart`, `SubagentStart`, and `UserPromptSubmit`), then start a new thread. They load the rules, pass them to subagents, and track mode changes.
+
+Invoke `$bonden:bonden` to use the core skill, or `$bonden:bonden-help` to see the commands and modes.
 
 This same install also covers the Codex desktop app: restart the app after installing and it picks up the plugin.
 
