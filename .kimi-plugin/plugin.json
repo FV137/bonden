@@ -1,15 +1,15 @@
 {
-  "name": "ponytail",
-  "description": "Lazy senior dev mode. Forces the simplest, shortest solution that actually works: YAGNI, stdlib first, no unrequested abstractions.",
+  "name": "bonden",
+  "description": "Complete the requested work, verify the outcome, and leave less complexity.",
   "author": {
-    "name": "Dietrich Gebert",
-    "url": "https://github.com/DietrichGebert"
+    "name": "FV137",
+    "url": "https://github.com/FV137"
   },
-  "homepage": "https://github.com/DietrichGebert/ponytail",
+  "homepage": "https://github.com/FV137/stunning-kiwi",
   "license": "MIT",
   "interface": {
-    "displayName": "Ponytail",
-    "shortDescription": "Lazy senior dev mode: YAGNI, stdlib first, the least code that works."
+    "displayName": "Bonden",
+    "shortDescription": "Complete the requested work, verify the outcome, and leave less complexity."
   },
   "skills": "./skills/",
   "systemPromptPath": "./AGENTS.md"

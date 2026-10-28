@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Generate the OpenClaw / ClawHub skill package (.openclaw/skills/) from the
 // canonical skills/. OpenClaw skills are SKILL.md (frontmatter + body), the same
-// format ponytail already uses, with one difference: `description` must be a
+// format bonden already uses, with one difference: `description` must be a
 // single line under 160 chars. The canonical descriptions are long (tuned for
 // Claude's skill picker), so each ships a short one here. The body is copied
 // verbatim from skills/<name>/SKILL.md so the ruleset never drifts; only the
@@ -14,15 +14,15 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const HOMEPAGE = 'https://github.com/DietrichGebert/ponytail';
+const HOMEPAGE = 'https://github.com/FV137/stunning-kiwi';
 
 const DESCRIPTIONS = {
-  'ponytail': 'Use when writing, fixing, refactoring, reviewing, or simplifying code, especially when work is bloated or unfinished.',
-  'ponytail-review': 'Quality review of a diff: bugs, security, real load, missing tests, speed, and what to delete. Each finding says what goes wrong and how to fix it.',
-  'ponytail-audit': 'Quality audit of the whole repo: bugs, security, real load, missing tests, speed, and what to delete. Most important first.',
-  'ponytail-debt': 'Harvest every shortcut: comment into one debt ledger, so deferrals get tracked instead of forgotten. One-shot report.',
-  'ponytail-gain': 'Show ponytail measured impact as a scoreboard: less code, less cost, more speed, from the agentic benchmark averages. One-shot display.',
-  'ponytail-help': "Quick reference for ponytail's modes, skills, and commands. One-shot display.",
+  'bonden': 'Use when writing, fixing, refactoring, reviewing, or simplifying code, especially when work is bloated or unfinished.',
+  'bonden-review': 'Quality review of a diff: bugs, security, real load, missing tests, speed, and what to delete. Each finding says what goes wrong and how to fix it.',
+  'bonden-audit': 'Quality audit of the whole repo: bugs, security, real load, missing tests, speed, and what to delete. Most important first.',
+  'bonden-debt': 'Harvest every shortcut: comment into one debt ledger, so deferrals get tracked instead of forgotten. One-shot report.',
+  'bonden-gain': 'Report recorded measurements and their limits. Use when asked what Bonden has demonstrably improved. One-shot report.',
+  'bonden-help': "Quick reference for bonden's modes, skills, and commands. One-shot display.",
 };
 
 const NAMES = Object.keys(DESCRIPTIONS);

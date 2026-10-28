@@ -1,4 +1,4 @@
-"""Hermes plugin for Ponytail."""
+"""Hermes plugin for Bonden."""
 
 from __future__ import annotations
 
@@ -11,16 +11,16 @@ from typing import Any, Callable
 DEFAULT_MODE = "full"
 RUNTIME_MODES = {"off", "lite", "full", "ultra"}
 SKILL_COMMANDS = {
-    "ponytail-review": "Review the current diff or provided target: bugs, security, load, missing tests, speed, and what to cut.",
-    "ponytail-audit": "Audit the whole repo: bugs, security, load, missing tests, speed, and what to cut.",
-    "ponytail-debt": "List every deliberate `shortcut:` comment and its upgrade path.",
-    "ponytail-gain": "Show the measured-impact scoreboard (less code, less cost, more speed).",
-    "ponytail-help": "Show the Ponytail command reference.",
+    "bonden-review": "Review the current diff or provided target: bugs, security, load, missing tests, speed, and what to cut.",
+    "bonden-audit": "Audit the whole repo: bugs, security, load, missing tests, speed, and what to cut.",
+    "bonden-debt": "List every deliberate `shortcut:` comment and its upgrade path.",
+    "bonden-gain": "Report recorded measurements and their limits.",
+    "bonden-help": "Show the Bonden command reference.",
 }
 
 ROOT = Path(__file__).resolve().parent
 SKILLS_DIR = ROOT / "skills"
-PONYTAIL_SKILL = SKILLS_DIR / "ponytail" / "SKILL.md"
+BONDEN_SKILL = SKILLS_DIR / "bonden" / "SKILL.md"
 
 _current_mode = None
 
@@ -34,14 +34,14 @@ def _normalize_runtime_mode(mode: str | None) -> str | None:
 
 def _config_dir() -> Path:
     if os.environ.get("XDG_CONFIG_HOME"):
-        return Path(os.environ["XDG_CONFIG_HOME"]) / "ponytail"
+        return Path(os.environ["XDG_CONFIG_HOME"]) / "bonden"
     if os.name == "nt":
-        return Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming")) / "ponytail"
-    return Path.home() / ".config" / "ponytail"
+        return Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming")) / "bonden"
+    return Path.home() / ".config" / "bonden"
 
 
 def _default_mode() -> str:
-    env_mode = _normalize_runtime_mode(os.environ.get("PONYTAIL_DEFAULT_MODE"))
+    env_mode = _normalize_runtime_mode(os.environ.get("BONDEN_DEFAULT_MODE"))
     if env_mode:
         return env_mode
     try:
@@ -75,7 +75,7 @@ def _filter_skill_body_for_mode(body: str, mode: str) -> str:
         # this, an ordinary rule bullet that happens to start with a mode word
         # (e.g. "- Full: ...") is silently dropped in every other mode — it looks
         # like a worked example but is really prose meant to survive verbatim.
-        # Mirrors the fix in hooks/ponytail-instructions.js (#571).
+        # Mirrors the fix in hooks/bonden-instructions.js (#571).
         example_label = re.match(r'^-\s*([^:]+):\s*"', line)
         if example_label:
             label_mode = _normalize_runtime_mode(example_label.group(1))
@@ -88,7 +88,7 @@ def _filter_skill_body_for_mode(body: str, mode: str) -> str:
 
 def _fallback_instructions(mode: str) -> str:
     return (
-        f"PONYTAIL MODE ACTIVE — level: {mode}\n\n"
+        f"BONDEN MODE ACTIVE — level: {mode}\n\n"
         "Own the requested outcome through verification. "
         "Keep the user's goal and requirements intact. "
         "Read the affected callers, tests, fixtures, config and exports. "
@@ -106,13 +106,13 @@ def _fallback_instructions(mode: str) -> str:
 
 
 def build_injected_context(mode: str | None = None) -> str:
-    """Return the mode-filtered Ponytail context injected before LLM turns."""
+    """Return the mode-filtered Bonden context injected before LLM turns."""
     effective = _normalize_runtime_mode(mode) or _default_mode()
     if effective == "off":
         return ""
     try:
-        body = PONYTAIL_SKILL.read_text(encoding="utf-8")
-        return f"PONYTAIL MODE ACTIVE — level: {effective}\n\n{_filter_skill_body_for_mode(body, effective)}"
+        body = BONDEN_SKILL.read_text(encoding="utf-8")
+        return f"BONDEN MODE ACTIVE — level: {effective}\n\n{_filter_skill_body_for_mode(body, effective)}"
     except OSError:
         return _fallback_instructions(effective)
 
@@ -122,8 +122,8 @@ def _pre_llm_call(
 ) -> dict[str, str] | None:
     mode = _current_mode or _default_mode()
     # Off is injected too: the ruleset from an earlier turn is replayed every turn,
-    # and the /ponytail off reply goes to the user, never to the model.
-    context = build_injected_context(mode) or "PONYTAIL MODE OFF"
+    # and the /bonden off reply goes to the user, never to the model.
+    context = build_injected_context(mode) or "BONDEN MODE OFF"
 
     # Hermes persists hook context in api_content for cache-stable replay.
     # Re-inject only when the active mode changed or compaction removed it.
@@ -133,7 +133,7 @@ def _pre_llm_call(
         api_content = message.get("api_content")
         if not isinstance(api_content, str):
             continue
-        matches = re.findall(r"PONYTAIL MODE (?:ACTIVE — level: ([a-z]+)|OFF)", api_content)
+        matches = re.findall(r"BONDEN MODE (?:ACTIVE — level: ([a-z]+)|OFF)", api_content)
         if matches:
             return None if (matches[-1] or "off") == mode else {"context": context}
 
@@ -145,7 +145,7 @@ def _skill_prompt(command: str, args: str = "") -> str:
     tail = args.strip()
     target = f"\n\nUser arguments: {tail}" if tail else ""
     return (
-        f"Load and follow the Hermes plugin skill `ponytail:{command}`. "
+        f"Load and follow the Hermes plugin skill `bonden:{command}`. "
         f"{SKILL_COMMANDS[command]}{target}"
     )
 
@@ -164,7 +164,7 @@ def _slash_access_denied(event: Any, gateway: Any, command: str) -> bool:
 
 
 def rewrite_gateway_command(event: Any = None, gateway: Any = None, **_: Any) -> dict[str, str] | None:
-    """Rewrite authorized gateway /ponytail-* commands into normal agent prompts."""
+    """Rewrite authorized gateway /bonden-* commands into normal agent prompts."""
     text = str(getattr(event, "text", "") or "").strip()
     if not text.startswith("/"):
         return None
@@ -181,17 +181,17 @@ def _handle_mode_command(raw_args: str) -> str:
     global _current_mode
     arg = (raw_args or "").strip().lower()
     if not arg:
-        # Bare /ponytail switches ponytail on, or reports the level when it already is (#639).
+        # Bare /bonden switches bonden on, or reports the level when it already is (#639).
         mode = _current_mode or _default_mode()
         if mode != "off":
-            return f"Ponytail mode: {mode}. Use `/ponytail lite|full|ultra|off`."
+            return f"Bonden mode: {mode}. Use `/bonden lite|full|ultra|off`."
         _current_mode = "full" if _default_mode() == "off" else _default_mode()
-        return f"Ponytail mode set to {_current_mode}."
+        return f"Bonden mode set to {_current_mode}."
     mode = _normalize_runtime_mode(arg)
     if not mode:
-        return "Usage: /ponytail [lite|full|ultra|off]"
+        return "Usage: /bonden [lite|full|ultra|off]"
     _current_mode = mode
-    return f"Ponytail mode set to {mode}."
+    return f"Bonden mode set to {mode}."
 
 
 def _make_skill_command_handler(ctx: Any, command: str) -> Callable[[str], str]:
@@ -210,7 +210,7 @@ def _make_skill_command_handler(ctx: Any, command: str) -> Callable[[str], str]:
 
 
 def register(ctx: Any) -> None:
-    """Register Ponytail hooks, skills, and slash commands with Hermes."""
+    """Register Bonden hooks, skills, and slash commands with Hermes."""
     for child in sorted(SKILLS_DIR.iterdir() if SKILLS_DIR.exists() else []):
         skill_md = child / "SKILL.md"
         if child.is_dir() and skill_md.exists():
@@ -220,9 +220,9 @@ def register(ctx: Any) -> None:
     ctx.register_hook("pre_gateway_dispatch", rewrite_gateway_command)
 
     ctx.register_command(
-        "ponytail",
+        "bonden",
         _handle_mode_command,
-        description="Set Ponytail mode: lite, full, ultra, or off.",
+        description="Set Bonden mode: lite, full, ultra, or off.",
         args_hint="[lite|full|ultra|off]",
     )
     for command, description in SKILL_COMMANDS.items():

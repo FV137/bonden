@@ -1,5 +1,5 @@
 {
-  "name": "ponytail",
-  "description": "Lazy senior dev mode. Forces the simplest solution that works: YAGNI, stdlib first, one line over fifty.",
+  "name": "bonden",
+  "description": "Complete the requested work, verify the outcome, and leave less complexity.",
   "skills": "."
 }

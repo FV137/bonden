@@ -17,56 +17,56 @@ function runUninstall(env) {
 
 delete process.env.CLAUDE_CONFIG_DIR;
 
-const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'ponytail-uninstall-'));
+const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'bonden-uninstall-'));
 process.on('exit', () => fs.rmSync(temp, { recursive: true, force: true }));
 
 const home = path.join(temp, 'home');
 const claudeDir = path.join(home, '.claude');
 fs.mkdirSync(claudeDir, { recursive: true });
 
-const flagPath = path.join(claudeDir, '.ponytail-active');
+const flagPath = path.join(claudeDir, '.bonden-active');
 fs.writeFileSync(flagPath, 'full');
 
-// Qoder keeps its flag in ~/.qoder (hooks/ponytail-runtime.js), and since
+// Qoder keeps its flag in ~/.qoder (hooks/bonden-runtime.js), and since
 // #676 it holds "off", so a leftover would start a reinstall switched off.
-const qoderFlagPath = path.join(home, '.qoder', '.ponytail-active');
+const qoderFlagPath = path.join(home, '.qoder', '.bonden-active');
 fs.mkdirSync(path.dirname(qoderFlagPath), { recursive: true });
 fs.writeFileSync(qoderFlagPath, 'ultra');
 const qoderCustomDir = path.join(temp, 'qoder-custom-config');
-const qoderCustomFlagPath = path.join(qoderCustomDir, '.ponytail-active');
+const qoderCustomFlagPath = path.join(qoderCustomDir, '.bonden-active');
 fs.mkdirSync(qoderCustomDir, { recursive: true });
 fs.writeFileSync(qoderCustomFlagPath, 'lite');
 
 // OpenCode keeps its flag beside its own config; a leftover "off" would start a
 // reinstall switched off.
-const opencodeFlagPath = path.join(temp, 'config-home', 'opencode', '.ponytail-active');
+const opencodeFlagPath = path.join(temp, 'config-home', 'opencode', '.bonden-active');
 fs.mkdirSync(path.dirname(opencodeFlagPath), { recursive: true });
 fs.writeFileSync(opencodeFlagPath, 'off');
 
-const nudgeFlagPath = path.join(claudeDir, '.ponytail-statusline-nudged');
+const nudgeFlagPath = path.join(claudeDir, '.bonden-statusline-nudged');
 fs.writeFileSync(nudgeFlagPath, '');
 
-const configDir = path.join(temp, 'config-home', 'ponytail');
+const configDir = path.join(temp, 'config-home', 'bonden');
 fs.mkdirSync(configDir, { recursive: true });
 const configPath = path.join(configDir, 'config.json');
 fs.writeFileSync(configPath, JSON.stringify({ defaultMode: 'ultra' }));
 
 // #1032: the statusline script copy kept in the config dir.
-const statuslineCopyPath = path.join(claudeDir, 'ponytail-statusline.sh');
+const statuslineCopyPath = path.join(claudeDir, 'bonden-statusline.sh');
 fs.writeFileSync(statuslineCopyPath, '#!/usr/bin/env bash\n');
-const statuslinePs1CopyPath = path.join(claudeDir, 'ponytail-statusline.ps1');
+const statuslinePs1CopyPath = path.join(claudeDir, 'bonden-statusline.ps1');
 fs.writeFileSync(statuslinePs1CopyPath, '');
 
 const settingsPath = path.join(claudeDir, 'settings.json');
 fs.writeFileSync(settingsPath, JSON.stringify({
-  statusLine: { type: 'command', command: 'bash /some/path/ponytail-statusline.sh' },
+  statusLine: { type: 'command', command: 'bash /some/path/bonden-statusline.sh' },
 }));
 
 // Cursor (#817): the Cursor mode flag goes too, and ~/.cursor/hooks.json loses
-// only ponytail's entries; the user's other hooks stay.
+// only bonden's entries; the user's other hooks stay.
 const cursorDir = path.join(home, '.cursor');
 fs.mkdirSync(cursorDir, { recursive: true });
-const cursorFlagPath = path.join(cursorDir, '.ponytail-active');
+const cursorFlagPath = path.join(cursorDir, '.bonden-active');
 fs.writeFileSync(cursorFlagPath, 'lite');
 const cursorHooksPath = path.join(cursorDir, 'hooks.json');
 fs.writeFileSync(cursorHooksPath, JSON.stringify({
@@ -74,9 +74,9 @@ fs.writeFileSync(cursorHooksPath, JSON.stringify({
   hooks: {
     sessionStart: [
       { command: './hooks/mine.sh' },
-      { command: 'node "/p/ponytail/hooks/ponytail-activate.js"', timeout: 5 },
+      { command: 'node "/p/bonden/hooks/bonden-activate.js"', timeout: 5 },
     ],
-    beforeSubmitPrompt: [{ command: 'node "/p/ponytail/hooks/ponytail-mode-tracker.js"', timeout: 5 }],
+    beforeSubmitPrompt: [{ command: 'node "/p/bonden/hooks/bonden-mode-tracker.js"', timeout: 5 }],
   },
 }));
 
@@ -100,14 +100,14 @@ assert.equal(fs.existsSync(statuslinePs1CopyPath), false, 'statusline .ps1 copy 
 assert.deepEqual(
   JSON.parse(fs.readFileSync(cursorHooksPath, 'utf8')),
   { version: 1, hooks: { sessionStart: [{ command: './hooks/mine.sh' }] } },
-  "only ponytail's entries may leave ~/.cursor/hooks.json",
+  "only bonden's entries may leave ~/.cursor/hooks.json",
 );
 
 const settingsAfter = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
 assert.equal(
   settingsAfter.statusLine,
   undefined,
-  'ponytail statusLine entry must be removed',
+  'bonden statusLine entry must be removed',
 );
 
 // A user's own, unrelated statusLine must survive untouched.
@@ -124,9 +124,9 @@ assert.equal(
   "a user's own statusLine must not be touched",
 );
 
-// A user command that merely contains ponytail's script name must also survive.
+// A user command that merely contains bonden's script name must also survive.
 fs.writeFileSync(settingsPath, JSON.stringify({
-  statusLine: { type: 'command', command: 'bash ~/my-ponytail-statusline.sh' },
+  statusLine: { type: 'command', command: 'bash ~/my-bonden-statusline.sh' },
 }));
 
 result = runUninstall(env);
@@ -134,14 +134,14 @@ assert.equal(result.status, 0, result.stderr);
 const settingsAfterSimilarName = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
 assert.equal(
   settingsAfterSimilarName.statusLine.command,
-  'bash ~/my-ponytail-statusline.sh',
+  'bash ~/my-bonden-statusline.sh',
   "a similarly named user statusLine must not be touched",
 );
 
-// #374: a combined statusline (another plugin && ponytail) must keep the other
+// #374: a combined statusline (another plugin && bonden) must keep the other
 // plugin's part — uninstall must not nuke the whole command or leave a husk.
 fs.writeFileSync(settingsPath, JSON.stringify({
-  statusLine: { type: 'command', command: 'bash ~/caveman-statusline.sh && bash /p/ponytail-statusline.sh' },
+  statusLine: { type: 'command', command: 'bash ~/caveman-statusline.sh && bash /p/bonden-statusline.sh' },
 }));
 
 result = runUninstall(env);
@@ -150,7 +150,7 @@ const settingsAfter3 = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
 assert.equal(
   settingsAfter3.statusLine.command,
   'bash ~/caveman-statusline.sh',
-  'a combined statusLine must keep the non-ponytail command',
+  'a combined statusLine must keep the non-bonden command',
 );
 
 result = runUninstall({ ...env, QODER_CONFIG_DIR: qoderCustomDir });
@@ -160,7 +160,7 @@ assert.equal(fs.existsSync(qoderCustomFlagPath), false, 'Qoder custom config mod
 // #434: a malformed settings.json must not crash the script mid-cleanup. It
 // can't be safely edited, so uninstall warns and leaves the file byte-for-byte
 // intact instead of throwing a SyntaxError after other state was already removed.
-const malformedSettings = '{ "statusLine": { "command": "ponytail-statusline.sh", broken';
+const malformedSettings = '{ "statusLine": { "command": "bonden-statusline.sh", broken';
 fs.writeFileSync(settingsPath, malformedSettings);
 
 result = runUninstall(env);

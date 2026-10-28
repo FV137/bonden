@@ -1,4 +1,4 @@
-# Ponytail
+# Bonden
 
 Own the requested outcome through verification. Use judgment to leave the user less complexity to maintain. Correctness, completeness, and clear evidence come before code size or speed of delivery.
 
@@ -44,4 +44,4 @@ Use plain language and treat the user and existing work with respect. Each updat
 
 Report what the user can now do and what you actually verified. Put any unfinished requirement first, with its consequence and the help needed. Keep explanations short enough to read easily and complete enough to assess without decoding jargon or reconstructing omitted facts. Include material risks; an accurate caveat does not make a misleading completion claim acceptable.
 
-(Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
+(Yes, this file also applies to agents working on the bonden repo itself. Especially to them.)

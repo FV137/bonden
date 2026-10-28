@@ -74,7 +74,7 @@ const TASK = {
   openCallers: [],
   tests: { state: 'none' as const },
 }
-const band = atom({ plugin: 'ponytail', key: 'band' } as const, EMPTY)
+const band = atom({ plugin: 'bonden', key: 'band' } as const, EMPTY)
 // State kept from an older version of the band lacks newer fields.
 const load = async ($: EngineInterface): Promise<Band> => ({ ...EMPTY, ...(await read($, band)) })
 
@@ -85,28 +85,28 @@ const base = (path: string) => path.replace(/\/+$/, '').split('/').pop() ?? path
 const home = async ($: EngineInterface) => (await $.env.get('HOME')) ?? (await $.env.get('USERPROFILE'))
 const claudeDir = async ($: EngineInterface) => (await $.env.get('CLAUDE_CONFIG_DIR')) ?? `${await home($)}/.claude`
 
-// `/ponytail band` (the mode tracker) leaves "off" here to hide the band. Absent flag = shown.
+// `/bonden band` (the mode tracker) leaves "off" here to hide the band. Absent flag = shown.
 async function bandHidden($: EngineInterface): Promise<boolean> {
   try {
-    return (await $.fs.read(`${await claudeDir($)}/.ponytail-band`)).trim() === 'off'
+    return (await $.fs.read(`${await claudeDir($)}/.bonden-band`)).trim() === 'off'
   } catch {
     return false
   }
 }
 
-// The level ponytail's own hooks write. Absent flag = off.
+// The level bonden's own hooks write. Absent flag = off.
 // shortcut: the shared flag the statusline reads, so two sessions in different repos show the last switch; read the per-project flag if that matters.
 async function readLevel($: EngineInterface): Promise<string> {
   const dir = await claudeDir($)
   try {
-    const level = (await $.fs.read(`${dir}/.ponytail-active`)).trim()
+    const level = (await $.fs.read(`${dir}/.bonden-active`)).trim()
     return LEVELS.includes(level) ? level : 'off'
   } catch {
     return 'off'
   }
 }
 
-// The same commands a person types, so ponytail's own skills and hooks stay the only logic.
+// The same commands a person types, so bonden's own skills and hooks stay the only logic.
 const run = ($: EngineInterface, command: string, args = '') => $.command.run({ command, args })
 
 type Options = { readonly [field: string]: unknown }
@@ -130,7 +130,7 @@ async function readModel($: EngineInterface, transcript: string): Promise<string
 // Where the task ledgers and the board live.
 // shortcut: ~/.config only (XDG respected); Windows would want %APPDATA%.
 async function ledgerDir($: EngineInterface) {
-  return `${(await $.env.get('XDG_CONFIG_HOME')) ?? `${await home($)}/.config`}/ponytail/band`
+  return `${(await $.env.get('XDG_CONFIG_HOME')) ?? `${await home($)}/.config`}/bonden/band`
 }
 
 const ledgerFile = (dir: string, project: string) => `${dir}/${project.replace(/[^\w.-]/g, '_')}.csv`
@@ -153,14 +153,14 @@ async function record($: EngineInterface, b: Band, options: Options) {
     const token = typeof options.webhookToken === 'string' ? options.webhookToken.trim() : ''
     const request = webhookRequest(url, token, options.sendNames !== false, row)
     if ('refused' in request) {
-      $.ui.status(`ponytail band: ${request.refused}`)
+      $.ui.status(`bonden band: ${request.refused}`)
       return
     }
     // Not awaited: a slow endpoint must never hold up the turn.
     void $.http
       .fetch(request.url, request.init)
-      .then(r => $.ui.status(r.ok ? undefined : `ponytail band: webhook answered ${r.status}`))
-      .catch(() => $.ui.status('ponytail band: webhook unreachable'))
+      .then(r => $.ui.status(r.ok ? undefined : `bonden band: webhook answered ${r.status}`))
+      .catch(() => $.ui.status('bonden band: webhook unreachable'))
   }
 }
 
@@ -208,7 +208,7 @@ export const register: Register = (on, options) => {
 
   // /clear and /resume go on under another session id with an empty band and no session.start, so the band showed
   // "off" until the first turn ended. Set it up again once a command has moved the session.
-  // shortcut: after /clear, ponytail-activate.js may reset the flag to the default level after this, so a level switched
+  // shortcut: after /clear, bonden-activate.js may reset the flag to the default level after this, so a level switched
   // before /clear can show until the first turn ends; a session skips a plugin's classic.SessionStart hook, the one later point.
   on('command.run', async ($, e, next) => {
     const session = await $.session.id()
@@ -331,7 +331,7 @@ export const register: Register = (on, options) => {
         openCallers: open,
       }
     })
-    await record($, b, options).catch(() => $.ui.status('ponytail band: could not write the task ledger'))
+    await record($, b, options).catch(() => $.ui.status('bonden band: could not write the task ledger'))
 
     return next(e)
   }).catch(($, e, next) => next(e))
@@ -351,15 +351,15 @@ export const register: Register = (on, options) => {
 
     const setLevel = async (level: string) => {
       await update($, band, x => ({ ...x, level }))
-      await run($, 'ponytail:ponytail', level)
+      await run($, 'bonden:bonden', level)
     }
     const toggle = async () => {
       await update($, band, x => ({ ...x, details: !x.details }))
       await $.store.set('details', !b.details)
     }
-    const review = () => run($, 'ponytail:ponytail-review')
-    const audit = () => run($, 'ponytail:ponytail-audit')
-    const board = () => openBoard($).catch(() => $.ui.toast('ponytail band: could not open the board'))
+    const review = () => run($, 'bonden:bonden-review')
+    const audit = () => run($, 'bonden:bonden-audit')
+    const board = () => openBoard($).catch(() => $.ui.toast('bonden band: could not open the board'))
     const copy = async () => {
       const done = await $.ui.copy({ text: markdown(snapshot(await load($), startedAt)), surface: e.surface })
       $.ui.toast(done.isCopied ? 'Task copied as Markdown' : `Copy failed: ${done.reason}`)

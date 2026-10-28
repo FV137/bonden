@@ -1,32 +1,30 @@
 {
-  "name": "ponytail",
-  "version": "5.3.2",
-  "description": "Lazy senior dev mode. Forces the simplest, shortest solution that actually works: YAGNI, stdlib first, no unrequested abstractions.",
+  "name": "bonden",
+  "version": "0.1.0",
+  "description": "Complete the requested work, verify the outcome, and leave less complexity.",
   "author": {
-    "name": "Dietrich Gebert",
-    "url": "https://github.com/DietrichGebert"
+    "name": "FV137",
+    "url": "https://github.com/FV137"
   },
-  "homepage": "https://github.com/DietrichGebert/ponytail",
-  "repository": "https://github.com/DietrichGebert/ponytail",
+  "homepage": "https://github.com/FV137/stunning-kiwi",
+  "repository": "https://github.com/FV137/stunning-kiwi",
   "license": "MIT",
   "keywords": ["yagni", "minimalism", "code-review", "productivity"],
   "skills": "./skills/",
   "hooks": "./hooks/claude-codex-hooks.json",
   "interface": {
-    "displayName": "Ponytail",
-    "shortDescription": "Lazy senior developer mode",
-    "longDescription": "Prefer YAGNI, the standard library, native platform features, and the smallest correct implementation.",
-    "developerName": "Dietrich Gebert",
+    "displayName": "Bonden",
+    "shortDescription": "Finish the work and verify the outcome",
+    "longDescription": "Own the requested outcome through verification. Use judgment to leave less complexity to maintain.",
+    "developerName": "FV137",
     "category": "Productivity",
     "capabilities": ["Instructions", "Lifecycle hooks"],
-    "websiteURL": "https://github.com/DietrichGebert/ponytail",
+    "websiteURL": "https://github.com/FV137/stunning-kiwi",
     "defaultPrompt": [
-      "Use Ponytail mode for this task.",
-      "Review this diff for over-engineering.",
-      "Find the smallest correct implementation."
+      "Use Bonden mode for this task.",
+      "Review this diff and its affected callers.",
+      "Simplify this code while preserving its required behavior."
     ],
-    "brandColor": "#111111",
-    "composerIcon": "./assets/codex-icon.png",
-    "logo": "./assets/logo.png"
+    "brandColor": "#111111"
   }
 }

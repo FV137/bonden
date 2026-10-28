@@ -1,14 +1,14 @@
 {
-  "name": "ponytail",
+  "name": "bonden",
   "interface": {
-    "displayName": "Ponytail"
+    "displayName": "Bonden"
   },
   "plugins": [
     {
-      "name": "ponytail",
+      "name": "bonden",
       "source": {
         "source": "url",
-        "url": "https://github.com/DietrichGebert/ponytail.git",
+        "url": "https://github.com/FV137/stunning-kiwi.git",
         "ref": "main"
       },
       "policy": {

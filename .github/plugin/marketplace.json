@@ -1,14 +1,14 @@
 {
-  "name": "ponytail",
-  "description": "Lazy senior dev mode for AI agents. The best code is the code you never wrote.",
+  "name": "bonden",
+  "description": "Complete the requested work, verify the outcome, and leave less complexity.",
   "owner": {
-    "name": "Dietrich Gebert",
-    "url": "https://github.com/DietrichGebert"
+    "name": "FV137",
+    "url": "https://github.com/FV137"
   },
   "plugins": [
     {
-      "name": "ponytail",
-      "description": "Forces the laziest solution that works. YAGNI, stdlib first, one line over fifty.",
+      "name": "bonden",
+      "description": "Complete the requested work, verify the outcome, and leave less complexity.",
       "source": "./",
       "category": "productivity",
       "tags": ["yagni", "minimalism", "code-review", "productivity"],
