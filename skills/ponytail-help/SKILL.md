@@ -14,17 +14,17 @@ write flag files, or persist anything.
 
 | Level | Trigger | What change |
 |-------|---------|-------------|
-| **Lite** | `/ponytail lite` | Build what was asked, name the smaller option in one line. |
-| **Full** | `/ponytail` | The smallest complete change, a check where the logic needs one, and a reply that names what was skipped and any risk. Default. |
-| **Ultra** | `/ponytail ultra` | Also questions the request and pushes back before building. |
+| **Lite** | `/ponytail lite` | Follow the requested approach; mention a smaller option when it materially helps. |
+| **Full** | `/ponytail` | Choose the simplest complete solution, run verification, and report the observed result. Default. |
+| **Ultra** | `/ponytail ultra` | Challenge costly assumptions with a concrete alternative; resolve consequential scope choices, then follow through. |
 
-Level sticks until changed or session end.
+Every level requires completion and verification. Level sticks until changed or session end.
 
 ## Skills
 
 | Skill | Trigger | What it does |
 |-------|---------|--------------|
-| **ponytail** | `/ponytail` | Lazy mode itself: least new code, clear replies that name skipped work and risks. |
+| **ponytail** | `/ponytail` | Own the requested outcome through verification, with less complexity and clear reporting. |
 | **ponytail-review** | `/ponytail-review` | Quality review of a diff: bugs, security, load, missing tests, speed, what to cut. Each finding says what goes wrong and how to fix it. |
 | **ponytail-audit** | `/ponytail-audit` | The same quality review for the whole repo, ranked. |
 | **ponytail-debt** | `/ponytail-debt` | Harvest `shortcut:` comments into a tracked ledger. |

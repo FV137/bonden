@@ -1,3 +1,13 @@
+# Stunning Kiwi
+
+See it through. Leave it simpler.
+
+A fork of [Ponytail](https://github.com/DietrichGebert/ponytail) focused on judgment, completing authorized work, and verifying results. The revised instructions live in [the core skill](skills/ponytail/SKILL.md) and its agent integrations.
+
+This first revision keeps Ponytail's command and package names. The original documentation below describes upstream releases and benchmarks; those published results have not been rerun for this fork.
+
+---
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.png">

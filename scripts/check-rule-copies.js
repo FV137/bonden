@@ -44,10 +44,14 @@ for (const [relPath, normalize] of copies) {
 const INVARIANTS = [
   'in this codebase',                      // ladder rung: reuse what already exists (#217)
   'grep every caller',                     // root-cause bug fix (#245)
-  'never about the change itself',         // scope: callers, tests and fixtures the change breaks
+  'Finish every part the task needs',         // scope: callers, tests and fixtures the change breaks
   'shortcut: <the limit>, <when to upgrade>',   // shortcut marker comment
   'correct on edge cases',                 // robust-variant rule
-  'Lazy code without its check is unfinished', // test reflex
+  'Run the relevant checks, inspect their results, and resolve failures.', // observed verification
+  'If authorized work or verification remains and you can do it, keep working.',
+  'Use authority already granted',
+  'a passing test of a weaker requirement is not success',
+  'deliver that step instead of restating the agreement',
   // the "never cut" carve-outs: pin each so a reword in either file can't silently drop one.
   'validation at trust boundaries',
   'prevents data loss',

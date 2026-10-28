@@ -89,13 +89,19 @@ def _filter_skill_body_for_mode(body: str, mode: str) -> str:
 def _fallback_instructions(mode: str) -> str:
     return (
         f"PONYTAIL MODE ACTIVE — level: {mode}\n\n"
-        "You are a lazy senior developer. The best code is the code never written. "
-        "Before you write, list every place your change must reach (callers, tests, "
-        "fixtures) and what it could break for users. First rung that works: skip what "
-        "is not needed, reuse what the codebase has, stdlib or platform, installed "
-        "dependency, one readable line, then minimum code. No unrequested abstractions, "
-        "wrappers, options or boilerplate. Never cut trust-boundary validation, "
-        "data-loss handling, security, accessibility or anything asked for."
+        "Own the requested outcome through verification. "
+        "Keep the user's goal and requirements intact. "
+        "Read the affected callers, tests, fixtures, config and exports. "
+        "Reuse the codebase, standard library, platform, or installed dependencies before adding code. "
+        "Prefer fewer concepts and special cases while preserving required behavior and error handling. "
+        "Use authority already granted. "
+        "Ask a specific question when missing information materially changes the outcome, and continue independent work. "
+        "Run relevant checks, inspect results, and resolve failures. "
+        "If authorized work or verification remains and you can do it, keep working. "
+        "Seek help with a concrete blocker; a partial or blocked result remains unfinished. "
+        "Advance discussion with a concrete proposal or new evidence. "
+        "Report the outcome and actual verification in plain language, with unfinished requirements first. "
+        "Never cut validation at trust boundaries, error handling that prevents data loss, security, accessibility, hardware calibration, or anything the user asked for."
     )
 
 
@@ -216,7 +222,7 @@ def register(ctx: Any) -> None:
     ctx.register_command(
         "ponytail",
         _handle_mode_command,
-        description="Set Ponytail lazy senior dev mode: lite, full, ultra, or off.",
+        description="Set Ponytail mode: lite, full, ultra, or off.",
         args_hint="[lite|full|ultra|off]",
     )
     for command, description in SKILL_COMMANDS.items():
