@@ -1,7 +1,7 @@
 ---
 name: bonden-review
 description: "Quality review of a diff: bugs, security, real load, missing tests, speed, and what to delete. Each finding says what goes wrong and how to fix it."
-homepage: https://github.com/FV137/stunning-kiwi
+homepage: https://github.com/FV137/bonden
 license: MIT
 ---
 

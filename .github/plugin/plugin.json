@@ -6,8 +6,8 @@
     "name": "FV137",
     "url": "https://github.com/FV137"
   },
-  "homepage": "https://github.com/FV137/stunning-kiwi",
-  "repository": "https://github.com/FV137/stunning-kiwi",
+  "homepage": "https://github.com/FV137/bonden",
+  "repository": "https://github.com/FV137/bonden",
   "license": "MIT",
   "keywords": ["yagni", "minimalism", "code-review", "productivity"],
   "commands": "commands/",

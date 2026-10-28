@@ -15,7 +15,7 @@ install script and a small output branch in `hooks/bonden-runtime.js`.
 ## Install and uninstall
 
 ```bash
-git clone https://github.com/FV137/stunning-kiwi
+git clone https://github.com/FV137/bonden
 node bonden/scripts/cursor-hooks.js install            # ~/.cursor/hooks.json, every project
 node bonden/scripts/cursor-hooks.js install --project  # <cwd>/.cursor/hooks.json, this project only
 node bonden/scripts/cursor-hooks.js uninstall          # add --project for the project file

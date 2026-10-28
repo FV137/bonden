@@ -1,7 +1,7 @@
 ---
 name: bonden
 description: "Use when writing, fixing, refactoring, reviewing, or simplifying code, especially when work is bloated or unfinished."
-homepage: https://github.com/FV137/stunning-kiwi
+homepage: https://github.com/FV137/bonden
 license: MIT
 ---
 

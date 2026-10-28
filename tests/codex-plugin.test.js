@@ -13,7 +13,7 @@ test('Codex installs Bonden from this fork without the upstream mascot', () => {
   assert.equal(manifest.name, 'bonden');
   assert.equal(marketplace.name, 'bonden');
   assert.equal(marketplace.plugins[0].name, 'bonden');
-  assert.equal(marketplace.plugins[0].source.url, 'https://github.com/FV137/stunning-kiwi.git');
+  assert.equal(marketplace.plugins[0].source.url, 'https://github.com/FV137/bonden.git');
   assert.equal(manifest.interface.displayName, 'Bonden');
   assert.equal(manifest.interface.logo, undefined);
   assert.equal(manifest.interface.composerIcon, undefined);

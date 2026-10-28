@@ -14,7 +14,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const HOMEPAGE = 'https://github.com/FV137/stunning-kiwi';
+const HOMEPAGE = 'https://github.com/FV137/bonden';
 
 const DESCRIPTIONS = {
   'bonden': 'Use when writing, fixing, refactoring, reviewing, or simplifying code, especially when work is bloated or unfinished.',

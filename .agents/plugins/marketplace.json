@@ -8,7 +8,7 @@
       "name": "bonden",
       "source": {
         "source": "url",
-        "url": "https://github.com/FV137/stunning-kiwi.git",
+        "url": "https://github.com/FV137/bonden.git",
         "ref": "main"
       },
       "policy": {

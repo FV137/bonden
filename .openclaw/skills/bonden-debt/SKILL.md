@@ -1,7 +1,7 @@
 ---
 name: bonden-debt
 description: "Harvest every shortcut: comment into one debt ledger, so deferrals get tracked instead of forgotten. One-shot report."
-homepage: https://github.com/FV137/stunning-kiwi
+homepage: https://github.com/FV137/bonden
 license: MIT
 ---
 

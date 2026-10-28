@@ -1,7 +1,7 @@
 ---
 name: bonden-gain
 description: "Report recorded measurements and their limits. Use when asked what Bonden has demonstrably improved. One-shot report."
-homepage: https://github.com/FV137/stunning-kiwi
+homepage: https://github.com/FV137/bonden
 license: MIT
 ---
 

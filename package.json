@@ -8,13 +8,13 @@
     "name": "FV137",
     "url": "https://github.com/FV137"
   },
-  "homepage": "https://github.com/FV137/stunning-kiwi",
+  "homepage": "https://github.com/FV137/bonden",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FV137/stunning-kiwi.git"
+    "url": "git+https://github.com/FV137/bonden.git"
   },
   "bugs": {
-    "url": "https://github.com/FV137/stunning-kiwi/issues"
+    "url": "https://github.com/FV137/bonden/issues"
   },
   "main": "./.opencode/plugins/bonden.mjs",
   "exports": {

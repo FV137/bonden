@@ -1,7 +1,7 @@
 ---
 name: bonden-audit
 description: "Quality audit of the whole repo: bugs, security, real load, missing tests, speed, and what to delete. Most important first."
-homepage: https://github.com/FV137/stunning-kiwi
+homepage: https://github.com/FV137/bonden
 license: MIT
 ---
 

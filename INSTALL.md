@@ -9,7 +9,7 @@ The Claude Code and Codex plugins, and the Cursor hooks, require Node.js on the 
 ## Claude Code
 
 ```
-/plugin marketplace add FV137/stunning-kiwi
+/plugin marketplace add FV137/bonden
 ```
 ```
 /plugin install bonden@bonden
@@ -23,7 +23,7 @@ CodeBuddy installs the same plugin with the same two `/plugin` commands and swit
 ## Codex
 
 ```bash
-codex plugin marketplace add FV137/stunning-kiwi
+codex plugin marketplace add FV137/bonden
 codex plugin add bonden@bonden
 ```
 
@@ -36,14 +36,14 @@ This same install also covers the Codex desktop app: restart the app after insta
 ## GitHub Copilot CLI
 
 ```bash
-copilot plugin marketplace add FV137/stunning-kiwi
+copilot plugin marketplace add FV137/bonden
 copilot plugin install bonden@bonden
 ```
 
 In an interactive Copilot CLI session, use the slash equivalents:
 
 ```
-/plugin marketplace add FV137/stunning-kiwi
+/plugin marketplace add FV137/bonden
 /plugin install bonden@bonden
 ```
 
@@ -57,17 +57,17 @@ Copilot CLI namespaces plugin commands by plugin name. For example:
 ## Pi agent harness
 
 ```
-pi install git:github.com/FV137/stunning-kiwi
+pi install git:github.com/FV137/bonden
 ```
 
 ## Kimi Code
 
-In Kimi Code, run `/plugins install https://github.com/FV137/stunning-kiwi`, then `/reload` or start a new session. The plugin puts [`AGENTS.md`](AGENTS.md) into the system prompt every turn and adds the six skills, which Kimi also offers as `/bonden`, `/bonden-review`, `/bonden-audit`, `/bonden-debt`, `/bonden-gain` and `/bonden-help`. Level switching (`/bonden lite`) loads the skill for that turn; there is no persistent mode flag in Kimi.
+In Kimi Code, run `/plugins install https://github.com/FV137/bonden`, then `/reload` or start a new session. The plugin puts [`AGENTS.md`](AGENTS.md) into the system prompt every turn and adds the six skills, which Kimi also offers as `/bonden`, `/bonden-review`, `/bonden-audit`, `/bonden-debt`, `/bonden-gain` and `/bonden-help`. Level switching (`/bonden lite`) loads the skill for that turn; there is no persistent mode flag in Kimi.
 
 ## Oh My Pi (omp)
 
 ```bash
-omp plugin marketplace add FV137/stunning-kiwi
+omp plugin marketplace add FV137/bonden
 omp plugin install bonden@bonden
 ```
 
@@ -92,13 +92,13 @@ OpenCode 1 uses the older `plugin` key and the checkout's file path: `{ "plugin"
 ## Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/FV137/stunning-kiwi
+gemini extensions install https://github.com/FV137/bonden
 ```
 
 Loads the ruleset as always-on context every session and registers the `/bonden` commands; the `skills/` ship too, activated when a task needs them.
 The Gemini adapter intentionally does not ship a root `hooks/hooks.json`: Gemini auto-loads that path, while Bonden's lifecycle hooks use Claude/Codex event names.
 
-Qwen Code installs the same extension: `qwen extensions install FV137/stunning-kiwi:bonden`. It loads `AGENTS.md` as always-on context and registers the `/bonden` commands and the skills; levels don't persist across sessions, since the lifecycle hooks are not used.
+Qwen Code installs the same extension: `qwen extensions install FV137/bonden:bonden`. It loads `AGENTS.md` as always-on context and registers the `/bonden` commands and the skills; levels don't persist across sessions, since the lifecycle hooks are not used.
 
 ## Qoder
 
@@ -109,7 +109,7 @@ For full plugin-tier support (automatic mode activation + ruleset injection on e
 ## Antigravity CLI
 
 ```bash
-agy plugin install https://github.com/FV137/stunning-kiwi
+agy plugin install https://github.com/FV137/bonden
 ```
 
 Installs the six skills, and Antigravity turns the `/bonden` commands into skills as well, so you [call them as slash commands](https://www.antigravity.google/docs/skills#slash-command-conversion) such as `/bonden-review`. No lifecycle hooks, so levels don't persist. For the always-on ruleset, copy [`AGENTS.md`](AGENTS.md) into your project; Antigravity [reads it as workspace rules](https://www.antigravity.google/docs/rules).
@@ -117,13 +117,13 @@ Installs the six skills, and Antigravity turns the `/bonden` commands into skill
 ## Hermes Agent
 
 ```bash
-hermes plugins install FV137/stunning-kiwi --enable
+hermes plugins install FV137/bonden --enable
 ```
 
 If that stops with `plugin.json declares an unsupported or missing Agent Plugins schema`, it is Hermes' install check (fix pending in [NousResearch/hermes-agent#125937](https://github.com/NousResearch/hermes-agent/pull/125937)). Until it lands, clone the plugin in by hand; Hermes loads it from `plugin.yaml` as usual:
 
 ```bash
-git clone https://github.com/FV137/stunning-kiwi.git ~/.hermes/plugins/bonden
+git clone https://github.com/FV137/bonden.git ~/.hermes/plugins/bonden
 hermes plugins enable bonden
 ```
 
@@ -136,7 +136,7 @@ Reads `AGENTS.md` from the project root, zero setup. Copy [`AGENTS.md`](AGENTS.m
 ## Devin CLI
 
 ```bash
-devin plugins install FV137/stunning-kiwi
+devin plugins install FV137/bonden
 ```
 
 Installs bonden as a Devin plugin; skills are available as `/bonden:bonden`, `/bonden:bonden-review`, and so on.
@@ -148,7 +148,7 @@ Bonden has not been published to ClawHub. Copy the six skill directories from [`
 ## Grok Build
 
 ```bash
-grok plugin install FV137/stunning-kiwi --trust
+grok plugin install FV137/bonden --trust
 ```
 
 Enable the plugin (off by default): `/plugins` → Plugins → Space on `bonden`, or in `~/.grok/config.toml`:
@@ -165,7 +165,7 @@ Start a new session (or reload plugins). Skills show as `/bonden`, `/bonden-revi
 ## Goose
 
 ```bash
-goose plugin install https://github.com/FV137/stunning-kiwi.git
+goose plugin install https://github.com/FV137/bonden.git
 ```
 
 That imports the six skills as `bonden:bonden`, `bonden:bonden-review` and so on. For the always-on rules, copy [`AGENTS.md`](AGENTS.md) to `~/.agents/AGENTS.md` (or into your project; `~/.config/goose/.goosehints` works too). Goose has no lifecycle hooks, so the levels don't persist.
@@ -173,7 +173,7 @@ That imports the six skills as `bonden:bonden`, `bonden:bonden-review` and so on
 ## Cursor
 
 ```bash
-git clone https://github.com/FV137/stunning-kiwi
+git clone https://github.com/FV137/bonden
 node bonden/scripts/cursor-hooks.js install
 ```
 
@@ -190,7 +190,7 @@ While active, the ruleset is also injected into every subagent spawned via the A
 The [skills CLI](https://skills.sh) copies the six bonden skills into the skills folder of many agents:
 
 ```bash
-npx skills add FV137/stunning-kiwi
+npx skills add FV137/bonden
 ```
 
 Pick the agent with `--agent` (for IBM Bob: `--agent bob`), take all six without asking with `--skill '*'`, and add `--global` to install for your user instead of the project. This installs the skills only; for the always-on ruleset, also add [`AGENTS.md`](AGENTS.md) or use one of the plugins above.

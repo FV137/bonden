@@ -1,7 +1,7 @@
 ---
 name: bonden-help
 description: "Quick reference for bonden's modes, skills, and commands. One-shot display."
-homepage: https://github.com/FV137/stunning-kiwi
+homepage: https://github.com/FV137/bonden
 license: MIT
 ---
 
@@ -73,4 +73,4 @@ If `/plugin` is not recognized, your Claude Code is out of date. Update it (`npm
 
 ## More
 
-Full docs + examples: https://github.com/FV137/stunning-kiwi
+Full docs + examples: https://github.com/FV137/bonden
