@@ -136,7 +136,7 @@ test('Claude and Codex manifests point at the shared host-specific hook config',
   // Claude Code also loads the band's hooks module, from a file of its own the other hosts never read.
   const expected = {
     '.claude-plugin/plugin.json': [`./${HOOKS_JSON}`, './hooks/claude-band.json'],
-    '.codex-plugin/plugin.json': `./${HOOKS_JSON}`,
+    '.codex-plugin/plugin.json': [`./${HOOKS_JSON}`, './hooks/codex-observer-hooks.json'],
   };
   for (const rel of HOST_PLUGIN_MANIFESTS) {
     const manifest = JSON.parse(fs.readFileSync(path.join(root, rel), 'utf8'));

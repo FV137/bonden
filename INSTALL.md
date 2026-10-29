@@ -27,7 +27,7 @@ codex plugin marketplace add FV137/bonden
 codex plugin add bonden@bonden
 ```
 
-Node.js must be on your PATH. Run `codex` and open `/hooks`, review and trust the three Bonden hooks (`SessionStart`, `SubagentStart`, and `UserPromptSubmit`), then start a new thread. They load the rules, pass them to subagents, and track mode changes.
+Node.js must be on your PATH. Run `codex` and open `/hooks`, review and trust Bonden's hooks, then start a new thread. `SessionStart`, `SubagentStart`, and `UserPromptSubmit` load the rules and track mode changes. The optional observer uses `PostToolUse` and `Stop`; it makes no model calls until enabled. See [Observer setup and costs](docs/observer.md).
 
 Invoke `$bonden:bonden` to use the core skill, or `$bonden:bonden-help` to see the commands and modes.
 

@@ -1,5 +1,5 @@
 name: bonden
-version: 0.1.0
+version: 0.2.0
 description: Verified task completion for Hermes Agent, with bundled skills and commands.
 author: FV137
 provides_hooks:

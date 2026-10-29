@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "notice": { "type": "string" },
+    "topic": { "type": "string" },
+    "evidence": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["notice", "topic", "evidence"],
+  "additionalProperties": false
+}

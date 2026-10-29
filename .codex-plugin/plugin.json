@@ -1,6 +1,6 @@
 {
   "name": "bonden",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Complete the requested work, verify the outcome, and leave less complexity.",
   "author": {
     "name": "FV137",
@@ -11,7 +11,7 @@
   "license": "MIT",
   "keywords": ["yagni", "minimalism", "code-review", "productivity"],
   "skills": "./skills/",
-  "hooks": "./hooks/claude-codex-hooks.json",
+  "hooks": ["./hooks/claude-codex-hooks.json", "./hooks/codex-observer-hooks.json"],
   "interface": {
     "displayName": "Bonden",
     "shortDescription": "Finish the work and verify the outcome",

@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "PostToolUse": [{ "hooks": [{
+      "type": "command",
+      "command": "node -e \"require(require('path').join(process.env.PLUGIN_ROOT, 'hooks/bonden-observer.js')).deliver(JSON.parse(require('fs').readFileSync(0, 'utf8'))).then(output => require('fs').writeSync(1, JSON.stringify(output)))\"",
+      "timeout": 5
+    }, {
+      "type": "command",
+      "command": "node -e \"require(require('path').join(process.env.PLUGIN_ROOT, 'hooks/bonden-observer.js')).run(JSON.parse(require('fs').readFileSync(0, 'utf8'))).then(output => require('fs').writeSync(1, JSON.stringify(output)))\"",
+      "async": true,
+      "timeout": 75
+    }] }],
+    "Stop": [{ "hooks": [{
+      "type": "command",
+      "command": "node -e \"require(require('path').join(process.env.PLUGIN_ROOT, 'hooks/bonden-observer.js')).run(JSON.parse(require('fs').readFileSync(0, 'utf8'))).then(output => require('fs').writeSync(1, JSON.stringify(output)))\"",
+      "timeout": 150,
+      "statusMessage": "Checking for overlooked requirements"
+    }] }]
+  }
+}
